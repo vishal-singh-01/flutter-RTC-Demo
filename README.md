@@ -82,13 +82,13 @@ iOS Archive via Xcode.
 - ✅ Android/iOS signing paths documented
 - ✅ README with build/run steps
 
-<img width="1080" height="2424" alt="Screenshot_1" src="https://github.com/user-attachments/assets/a706151c-c728-45f2-aecc-31a86e465368" />
+<img width="350" height="2424" alt="Screenshot_1" src="https://github.com/user-attachments/assets/a706151c-c728-45f2-aecc-31a86e465368" />
 
-<img width="1080" height="2424" alt="Screenshot_2" src="https://github.com/user-attachments/assets/f5166d62-92af-461d-934e-3adcaf4980dd" />
+<img width="350" height="2424" alt="Screenshot_2" src="https://github.com/user-attachments/assets/f5166d62-92af-461d-934e-3adcaf4980dd" />
 
-<img width="1080" height="2424" alt="Screenshot_4" src="https://github.com/user-attachments/assets/cfe9d955-7f4b-4caa-bc30-8c983e048c69" />
+<img width="350" height="2424" alt="Screenshot_4" src="https://github.com/user-attachments/assets/cfe9d955-7f4b-4caa-bc30-8c983e048c69" />
 
-<img width="1080" height="2424" alt="Screenshot_3" src="https://github.com/user-attachments/assets/c8667b95-d3dd-4ba6-9b73-d9eaa54349c5" />
+<img width="350" height="2424" alt="Screenshot_3" src="https://github.com/user-attachments/assets/c8667b95-d3dd-4ba6-9b73-d9eaa54349c5" />
 
 
 
