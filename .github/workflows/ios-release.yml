@@ -1,0 +1,81 @@
+name: iOS Release (TestFlight)
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-ios:
+    runs-on: macos-13
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install Ruby & Fastlane
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Cache Flutter pub
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pub-cache
+            ${{ github.workspace }}/.dart_tool
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: ${{ runner.os }}-pub-
+
+      - name: Pub get
+        run: flutter pub get
+
+      - name: Generate splash & icons
+        run: |
+          flutter pub run flutter_native_splash:create || true
+          flutter pub run flutter_launcher_icons:main || true
+
+      - name: Pod install
+        run: |
+          cd ios
+          pod repo update
+          pod install
+        env:
+          COCOAPODS_DISABLE_STATS: 'true'
+
+      - name: Build IPA
+        run: |
+          flutter build ipa --release --no-codesign
+
+      # Codesign & upload with Fastlane (simple lane)
+      - name: Setup App Store Connect API key
+        run: |
+          mkdir -p ~/.appstoreconnect/private_keys
+          echo "${APPSTORE_P8_BASE64}" | base64 --decode > ~/.appstoreconnect/private_keys/AuthKey_${APPSTORE_KEY_ID}.p8
+        env:
+          APPSTORE_P8_BASE64: ${{ secrets.APPSTORE_P8_BASE64 }}
+          APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
+
+      - name: Install Fastlane dependencies
+        run: |
+          cd ios
+          gem install fastlane
+
+      - name: Deliver to TestFlight (upload .ipa)
+        run: |
+          xcrun altool --list-providers -u unused -p unused || true
+          # Use fastlane pilot for upload
+          cd ios
+          fastlane pilot upload \
+            --api_key_path ~/.appstoreconnect/private_keys/AuthKey_${APPSTORE_KEY_ID}.p8 \
+            --api_key_id $APPSTORE_KEY_ID \
+            --api_issuer $APPSTORE_ISSUER_ID \
+            --ipa ../build/ios/ipa/*.ipa \
+            --skip_waiting_for_build_processing true
+        env:
+          APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
+          APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
