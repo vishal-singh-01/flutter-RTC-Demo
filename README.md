@@ -66,14 +66,6 @@ iOS Archive via Xcode.
 
 ---
 
-## 🎨 UI polish tips (optional)
-
-- Consider a gradient AppBar:
-   - Wrap `AppBar` in a `PreferredSize` + `Container` with `BoxDecoration(gradient: …)`.
-- Add haptics when toggling mic/cam (small detail, premium feel).
-- Use `GoogleFonts.interTextTheme()` in `ThemeData` (already in earlier code).
-
----
 
  **store-ready**:
 - ✅ Splash & icons generated from `video-call.png` & `splash.png`
