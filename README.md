@@ -58,9 +58,9 @@ iOS Archive via Xcode.
 
 ---
 
-# Lifecycle best practices (you already have them)
+# Lifecycle best practices 
 
-- We implemented `WidgetsBindingObserver` to **mute** tracks when the app is **paused** and restore on **resumed** — avoids crashes and makes backgrounding safe.
+- Implemented `WidgetsBindingObserver` to **mute** tracks when the app is **paused** and restore on **resumed** — avoids crashes and makes backgrounding safe.
 - The video UI handles **connecting**, **waiting**, and **disconnected** states gracefully.
 - Errors surface via **SnackBars** so the app never silently fails.
 
